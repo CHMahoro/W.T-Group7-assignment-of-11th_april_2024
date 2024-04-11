@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detail information</title>
+     <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <?php
+$host = "localhost";
+$user = "Admin";
+$pass = "bityear2@2024";
+$database = "bityeartwo2024";
+
+$conn = new mysqli($host, $user, $pass, $database);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql1 = "SELECT mid, userid, type, location, upload_date FROM multimedia";
+$sql2 = "SELECT artid, userid, title, contents, dateofcreation FROM article";
+$sql3 = "SELECT cid, contentid, userid FROM comment";
+$sql4 = "SELECT fid, userid, friendid FROM friends";
+$sql5 = "SELECT lid, contentid, userid FROM `like`";
+$sql6 = "SELECT ulid, contentid, userid FROM `unlike`";
+$sql7 = "SELECT rid, userid, rolename FROM `role`";
+$sql8 = "SELECT pid, userid, Campus, College, School, Department, Level, GroupName, Regnumber FROM profile";
+
+$result1 = $conn->query($sql1);
+$result2 = $conn->query($sql2);
+$result3 = $conn->query($sql3);
+$result4 = $conn->query($sql4);
+$result5 = $conn->query($sql5);
+$result6 = $conn->query($sql6);
+$result7 = $conn->query($sql7);
+$result8 = $conn->query($sql8);
+
+?>
+    <h2>Multimedia Table</h2>
+    
+    <table id="multimediaTable" class="table table-striped table-bordered">
+        <tr>
+            <th>multid</th>
+            <th>userid</th>
+            <th>type</th>
+            <th>location</th>
+            <th>upload_date</th>
+        </tr>
+        <?php
+        // Output data of each row
+        if ($result1->num_rows > 0) {
+            while ($row = $result1->fetch_assoc()) {
+                echo "<tr><td>" . $row["mid"] . "</td><td>" . $row["userid"] . "</td><td>" . $row["type"] . "</td><td>" . $row["location"] . "</td><td>" . $row["upload_date"] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>No data found</td></tr>";
+        }
+        ?>
+    </table><br><br>
+
+    <h2>Article Table</h2>
+    
+    <table id="articleTable" class="table table-striped table-bordered">
+        <tr>
+            <th>artid</th>
+            <th>userid</th>
+            <th>title</th>
+            <th>contents</th>
+            <th>dateofcreation</th>
+        </tr>
+        <?php
+        // Output data of each row
+        if ($result2->num_rows > 0) {
+            while ($row = $result2->fetch_assoc()) {
+                echo "<tr><td>" . $row["artid"] . "</td><td>" . $row["userid"] . "</td><td>" . $row["title"] . "</td><td>" . $row["contents"] . "</td><td>" . $row["dateofcreation"] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>No data found</td></tr>";
+        }
+        ?>
+    </table><br><br>
+
+    <h2>Comment Table</h2>
+    
+    <table id="commentTable" class="table table-striped table-bordered">
+        <tr>
+            <th>cid</th>
+            <th>contentid</th>
+            <th>userid</th>
+        </tr>
+        <?php
+        // Output data of each row
+        if ($result3->num_rows > 0) {
+            while ($row = $result3->fetch_assoc()) {
+                echo "<tr><td>" . $row["cid"] . "</td><td>" . $row["contentid"] . "</td><td>" . $row["userid"] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='3'>No data found</td></tr>";
+        }
+        ?>
+    </table><br><br>
+
+    <h2>Friends Table</h2>
+    
+    <table id="friendsTable" class="table table-striped table-bordered">
+        <tr>
+            <th>fid</th>
+            <th>userid</th>
+            <th>friendid</th>
+        </tr>
+        <?php
+        // Output data of each row
+        if ($result4->num_rows > 0) {
+            while ($row = $result4->fetch_assoc()) {
+                echo "<tr><td>" . $row["fid"] . "</td><td>" . $row["userid"] . "</td><td>" . $row["friendid"] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='3'>No data found</td></tr>";
+        }
+        ?>
+    </table><br><br>
+
+    <h2>Like Table</h2>
+    
+    <table id="likeTable" class="table table-striped table-bordered">
+        <tr>
+            <th>lid</th>
+            <th>contentid</th>
+            <th>userid</th>
+        </tr>
+        <?php
+        // Output data of each row
+        if ($result5->num_rows > 0) {
+            while ($row = $result5->fetch_assoc()) {
+                echo "<tr><td>" . $row["lid"] . "</td><td>" . $row["contentid"] . "</td><td>" . $row["userid"] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='3'>No data found</td></tr>";
+        }
+        ?>
+    </table><br><br>
+
+    <h2>Unlike Table</h2>
+    
+    <table id="unlikeTable" class="table table-striped table-bordered">
+        <tr>
+            <th>ulid</th>
+            <th>contentid</th>
+            <th>userid</th>
+        </tr>
+        <?php
+        // Output data of each row
+        if ($result6->num_rows > 0) {
+            while ($row = $result6->fetch_assoc()) {
+                echo "<tr><td>" . $row["ulid"] . "</td><td>" . $row["contentid"] . "</td><td>" . $row["userid"] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='3'>No data found</td></tr>";
+        }
+        ?>
+    </table><br><br>
+
+    <h2>Role Table</h2>
+    
+    <table id="roleTable" class="table table-striped table-bordered">
+        <tr>
+            <th>rid</th>
+            <th>userid</th>
+            <th>rolename</th>
+        </tr>
+        <?php
+        // Output data of each row
+        if ($result7->num_rows > 0) {
+            while ($row = $result7->fetch_assoc()) {
+                echo "<tr><td>" . $row["rid"] . "</td><td>" . $row["userid"] . "</td><td>" . $row["rolename"] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='3'>No data found</td></tr>";
+        }
+        ?>
+    </table><br><br>
+
+    <h2>Profile Table</h2>
+    
+    <table id="profileTable" class="table table-striped table-bordered">
+        <tr>
+            <th>pid</th>
+            <th>userid</th>
+            <th>Campus</th>
+            <th>College</th>
+            <th>School</th>
+            <th>Department</th>
+            <th>Level</th>
+            <th>GroupName</th>
+            <th>Regnumber</th>
+        </tr>
+        <?php
+        // Output data of each row
+        if ($result8->num_rows > 0) {
+            while ($row = $result8->fetch_assoc()) {
+                echo "<tr><td>" . $row["pid"] . "</td><td>" . $row["userid"] . "</td><td>" . $row["Campus"] . "</td><td>" . $row["College"] . "</td><td>" . $row["School"] . "</td><td>" . $row["Department"] . "</td><td>" . $row["Level"] . "</td><td>" . $row["GroupName"] . "</td><td>" . $row["Regnumber"] . "</td></tr>";
+            }
+        } else {
+            echo "<tr><td colspan='9'>No data found</td></tr>";
+        }
+        ?>
+    </table><br><br>
+    
+<?php
+// Close connection
+$conn->close();
+?>
+
+
+
+</body>
+</html>
+

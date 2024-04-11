@@ -1,0 +1,49 @@
+
+
+<?php
+// Connection details
+// ISHIMWE DIEUDONNEE  (222013811),d.Ishimwe01@gmail.com
+$host = "localhost";
+$user = "admin";
+$pass = "bityear2@2024";
+$database = "bityeartwo2024";
+
+// Creating connection
+$connection = new mysqli($host, $user, $pass, $database);
+
+// Check connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+} else {
+    echo "Connected successfully"; // Just for testing, remove in production
+}
+
+// Handling POST request
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieving form data
+    $fname = $_POST['firstname'];
+    $lname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $telephone = $_POST['telephone'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $activation_code = $_POST['activation_code'];
+
+    // Preparing SQL query
+    $sql = "INSERT INTO user(firstname, lastname, email, username, telephone, password, activation_code) 
+            VALUES ('$fname', '$lname', '$email', '$username', '$telephone', '$password', '$activation_code')";
+
+    // Executing SQL query
+    if ($connection->query($sql) === TRUE) {
+        // Redirecting to login page on successful registration
+        header("Location: login.html");
+        exit();
+    } else {
+        // Displaying error message if query execution fails
+        echo "Error: " . $sql . "<br>" . $connection->error;
+    }
+}
+
+// Closing database connection
+$connection->close();
+?>
